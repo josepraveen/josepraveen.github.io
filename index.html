@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jose Praveen - Portfolio</title>
+    <style>
+        /* --- General Reset & Tokens --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --bg-color: #f7f9fc;
+            --grid-color: #e2e8f0;
+            --primary-dark: #1a202c;
+            --accent-blue: #4e73df;
+            --accent-green: #1cc88a;
+            --btn-shadow: #ff3e3e;
+            --card-bg: rgba(255, 255, 255, 0.8);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: var(--primary-dark);
+            overflow-x: hidden; /* Critical for mobile to prevent side-scrolling */
+            line-height: 1.6;
+        }
+
+        section { padding: 80px 5%; }
+        h2 { font-family: serif; font-size: clamp(28px, 5vw, 48px); margin-bottom: 40px; text-align: center; }
+
+        /* --- Navbar --- */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 5%;
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(247, 249, 252, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary-dark);
+        }
+
+        .nav-links { display: flex; list-style: none; gap: 20px; }
+        .nav-links a { text-decoration: none; color: var(--primary-dark); font-weight: 600; font-size: 13px; text-transform: uppercase; }
+        .nav-links a:hover { color: var(--accent-blue); }
+
+        .btn {
+            padding: 12px 24px; /* Slightly larger for touch */
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.1s;
+            border: 2px solid var(--primary-dark);
+            box-shadow: 4px 4px 0px var(--btn-shadow);
+            cursor: pointer;
+        }
+        .btn-blue { background: var(--accent-blue); color: white; }
+        .btn-white { background: white; color: var(--primary-dark); }
+        .btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px var(--btn-shadow); }
+
+        /* --- Impact/Marquee Section --- */
+        .impact-section { padding-top: 140px; }
+        .marquee-wrapper { width: 100%; overflow: hidden; display: flex; padding-bottom: 20px; }
+        .marquee-container { display: flex; width: fit-content; animation: scroll-left 30s linear infinite; }
+        .stat-card {
+            min-width: 220px;
+            background: white;
+            border: 2px solid var(--primary-dark);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 0 10px;
+            box-shadow: 6px 6px 0px var(--accent-green);
+        }
+        @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* --- Blog Grid --- */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .blog-card {
+            background: white;
+            border: 2px solid var(--primary-dark);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
+        }
+        .blog-card:hover { transform: translate(-4px, -4px); box-shadow: 8px 8px 0px var(--primary-dark); }
+        .blog-img { height: 180px; width: 100%; object-fit: cover; border-bottom: 2px solid var(--primary-dark); }
+        .blog-content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .blog-content h3 { font-size: 18px; margin-bottom: 10px; min-height: 50px; }
+        .blog-content p { font-size: 14px; color: #555; margin-bottom: 20px; flex-grow: 1; }
+
+        /* --- Awards Section --- */
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .award-item {
+            background: #fff;
+            border: 2px solid var(--primary-dark);
+            padding: 25px;
+            border-radius: 15px;
+        }
+        .award-item h4 { color: var(--accent-blue); margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .award-item ul { list-style: none; font-size: 14px; }
+        .award-item li { margin-bottom: 8px; position: relative; padding-left: 15px; }
+        .award-item li::before { content: "→"; position: absolute; left: 0; color: var(--accent-green); }
+
+        /* --- Social & Community --- */
+        .social-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        iframe { border: none; width: 100%; max-width: 400px; height: 160px; }
+        .social-container img { max-width: 100%; height: auto; }
+
+        /* --- Mobile Responsive Tweak --- */
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; gap: 15px; text-align: center; position: relative; }
+            .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            .impact-section { padding-top: 40px; }
+            section { padding: 40px 20px; }
+            .social-container { flex-direction: column; }
+            .btn { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <strong style="font-size: 22px; letter-spacing: -1px;">JOSE PRAVEEN</strong>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#awards">Awards</a></li>
+            <li><a href="#social">Social</a></li>
+        </ul>
+        <a href="https://topmate.io/josepraveen/1681797/pay?utm_source=public_profile&utm_campaign=josepraveen" target="_blank" class="btn btn-blue">Contact Me</a>
+    </nav>
+
+    <section id="blog" class="impact-section">
+        <h2>Tech Blog Posts</h2>
+        <div class="blog-grid">
+            <div class="blog-card">
+                <img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*k6FhjmKxedwh2SlRQOA4bw.gif" class="blog-img" alt="T-Pot">
+                <div class="blog-content">
+                    <h3>Monitoring Attacks with T-Pot: Installing a Honeypot on Google Cloud</h3>
+                    <p>In this guide, we will deploy T-Pot CE on a cloud virtual machine and configure the required firewall rules to begin monitoring attack traffic. </p>
+                    <a href="https://josepraveen.medium.com/monitoring-attacks-with-t-pot-installing-a-honeypot-on-google-cloud-c001e231cac5" target="_blank" class="btn btn-white">Read Post</a>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="https://miro.medium.com/v2/resize:fit:4800/format:webp/1*cA5u_f7lx3DoJ1__0i-ETw.gif" class="blog-img" alt="MCP">
+                <div class="blog-content">
+                    <h3>MCP-Audit — a free open-source tool from APISec Inc.</h3>
+                    <p>Discover and audit Model Context Protocol servers across your organization.</p>
+                    <a href="https://josepraveen.medium.com/mcp-audit-a-free-open-source-tool-from-apisec-inc-cdbc79007eb2" target="_blank" class="btn btn-white">Read Post</a>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*-sq4qDgR2JPFore5B7vb4g.gif" class="blog-img" alt="Ollama">
+                <div class="blog-content">
+                    <h3>Running Cloud Models Locally with Ollama: A Simple Setup Guide</h3>
+                    <p>This blog covers Claude Code integration with Ollama and launching it using local models like minimax-m2.5:cloud</p>
+                    <a href="https://josepraveen.medium.com/running-cloud-models-locally-with-ollama-a-simple-setup-guide-8a5f9c20b077" target="_blank" class="btn btn-white">Read Post</a>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="https://securityinclouddata.wordpress.com/wp-content/uploads/2026/04/demo-post.gif" class="blog-img" alt="azuregoat">
+                <div class="blog-content">
+                    <h3>AzureGoat, Prowler, & Claude: A practical approach to audit & remediate cloud security risks</h3>
+                    <p>Practical approach to audit and remediate cloud risks using Prowler and Claude.</p>
+                    <a href="https://securityinclouddata.wordpress.com/2026/04/13/azuregoat-prowler-claude-a-practical-approach-to-audit-remediate-cloud-security-risks/" target="_blank" class="btn btn-white">Read Post</a>
+                </div>
+            </div>
+
+      <div class="blog-card">
+                <img src="https://securityinclouddata.wordpress.com/wp-content/uploads/2026/03/demoscout.gif" class="blog-img" alt="scoutsuite">
+                <div class="blog-content">
+                    <h3>Learn AWS Security Auditing by Building a Scout Suite Home Lab</h3>
+                    <p>This blog covers building a simple AWS security assessment home lab using Scout Suite, a powerful open-source tool for multi-cloud security auditing</p>
+                    <a href="https://securityinclouddata.wordpress.com/2026/03/28/learn-aws-security-auditing-by-building-a-scout-suite-home-lab/" target="_blank" class="btn btn-white">Read Post</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="awards" style="background: rgba(28, 200, 138, 0.05);">
+        <h2>Honors & Awards</h2>
+        <div class="awards-grid">
+            <div class="award-item">
+                <h4>Scholarships</h4>
+                <ul>
+                    <li>Google Scholar ’18</li>
+                    <li>Nutanix & Azure ML</li>
+                    <li>SUSE ND</li>
+                    <li>AWS ML ’20-’21</li>
+                    <li>Next Gen Tech Booster ’23-’25</li>
+                </ul>
+            </div>
+            <div class="award-item">
+                <h4>Professional Awards</h4>
+                <ul>
+                    <li>Outstanding Performer (Client)</li>
+                    <li>Unstoppable Award</li>
+                    <li>Hats Off Award</li>
+                </ul>
+            </div>
+            <div class="award-item">
+                <h4>Industry</h4>
+                <ul>
+                    <li>DZone: Most Valuable Blogger</li>
+                    <li>Top 3 - Auth0 Challenge</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="social">
+        <h2>Social</h2>
+        <div class="marquee-wrapper">
+            <div class="marquee-container">
+                <div class="stat-card"><strong>3M+</strong><p>Quora Answer Views</p></div>
+                <div class="stat-card"><strong>3000+</strong><p>YouTube Subs</p></div>
+                <div class="stat-card"><strong>150+</strong><p>GitHub Followers</p></div>
+                <div class="stat-card"><strong>3M+</strong><p>Quora Answer Views</p></div>
+                <div class="stat-card"><strong>3000+</strong><p>YouTube Subs</p></div>
+                <div class="stat-card"><strong>150+</strong><p>GitHub Followers</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="social-container">
+            <a href="https://stackoverflow.com/users/8035260/jose-praveen" target="_blank">
+                <img src="https://stackoverflow.com/users/flair/8035260.png" alt="StackOverflow Profile">
+            </a>
+            <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=116547" scrolling="no"></iframe>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px; font-size: 14px; opacity: 0.7;">
+            <p>&copy; 2026 Jose Praveen. Built with Gemini 3.</p>
+        </div>
+    </section>
+
+</body>
+</html>
